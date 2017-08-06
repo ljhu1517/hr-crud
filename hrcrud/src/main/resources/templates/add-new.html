@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>HR Crud</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Add New Employee </h2>
+  <form th:action="@{/add}" method="POST">
+  
+    <div class="form-group">
+      <label for="fname">First name:</label>
+      <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="fname"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="lname">Last name:</label>
+      <input type="text" class="form-control" id="lname" placeholder="Enter last name" name="lname"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="hiredate">Hire Date:</label>
+      <input type="text" class="form-control" id="hiredate" placeholder="Enter hire date" name="hiredate"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="hiredate">Salary:</label>
+      <input type="number" class="form-control" id="salary" placeholder="Enter salary" name="salary"/>
+    </div>
+    
+    <div class="form-group">	
+      <label for="managerid">Manager ID:</label>
+      <select class="form-control" id="manager" name="managerid"></select>
+    </div>
+    
+    <div class="form-group">	
+      <label for="departmentid">Department ID:</label>
+      <select class="form-control" id="department" name="departmentid">
+      	<option value ="5" >HQ</option>
+      	<option value ="6" >Tech</option>
+      	<option value ="7" >Accounting</option>
+      	<option value ="8" >Marketing</option>
+      </select>
+    </div>
+    
+    <div class="form-group">	
+      <label for="jobid">Job ID:</label>
+      <select class="form-control" id="job" name="jobid">
+      	<option value ="1" >Accountant</option>
+      	<option value ="3" >Sales Manager</option>
+      	<option value ="4" >Clerk</option>
+      </select>
+    </div>
+    
+    <button type="submit" class="btn btn-default">Save</button>
+    <button type="button" class="btn btn-default">Cancel</button>
+	
+  </form>
+</div>
+
+</body>
+</html>
