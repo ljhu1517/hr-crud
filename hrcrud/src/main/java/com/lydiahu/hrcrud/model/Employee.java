@@ -90,4 +90,9 @@ public class Employee {
 		this.job = job;
 	}
 	
+	public String toString() {
+		
+		return firstName + " " + lastName;
+	}
+	
 }

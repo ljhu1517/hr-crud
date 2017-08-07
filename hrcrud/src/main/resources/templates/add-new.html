@@ -48,19 +48,14 @@
     <div class="form-group">	
       <label for="departmentid">Department ID:</label>
       <select class="form-control" id="department" name="departmentid">
-      	<option value ="5" >HQ</option>
-      	<option value ="6" >Tech</option>
-      	<option value ="7" >Accounting</option>
-      	<option value ="8" >Marketing</option>
+      	<option th:each="department:${departments}" th:value="${department.id}" th:text="${department.name}"/>
       </select>
     </div>
     
     <div class="form-group">	
       <label for="jobid">Job ID:</label>
       <select class="form-control" id="job" name="jobid">
-      	<option value ="1" >Accountant</option>
-      	<option value ="3" >Sales Manager</option>
-      	<option value ="4" >Clerk</option>
+      	<option th:each="job:${jobs}" th:value="${job.id}" th:text="${job.name}"/>
       </select>
     </div>
     

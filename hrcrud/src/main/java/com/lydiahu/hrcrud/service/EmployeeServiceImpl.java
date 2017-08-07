@@ -25,7 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Employee findByID(BigDecimal id) {
+	public Employee findById(BigDecimal id) {
 		return this.employeeRepository.findOne(id);
 	}
 

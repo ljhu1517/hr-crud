@@ -69,7 +69,7 @@ CREATE TABLE
         department_id INTEGER NOT NULL,
         manager_id BIGINT,
         job_id BIGINT NOT NULL,
-        salary MONEY NOT NULL,
+        salary NUMERIC NOT NULL,
         PRIMARY KEY (id),
         CONSTRAINT employee_fk2 FOREIGN KEY (job_id) REFERENCES job (id),
         CONSTRAINT employee_fk1 FOREIGN KEY (department_id) REFERENCES department (id)

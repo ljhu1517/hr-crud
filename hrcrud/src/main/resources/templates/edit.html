@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8"/>
@@ -13,29 +13,36 @@
 
 <div class="container">
   <h2>Edit employee info </h2>
-  <form action="/add">
+  <form th:action="@{/update}" method="POST">
+    
     <div class="form-group">
       <label for="fname">First name:</label>
-      <input type="text" class="form-control" id="fname" placeholder="Enter first name" name="fname"/>
-    </div>
-    <div class="form-group">
-      <label for="lname">Last name:</label>
-      <input type="text" class="form-control" id="lname" placeholder="Enter last name" name="lname"/>
-    </div>
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email"/>
-    </div>
-    <div class="form-group">
-      <label for="id">Employee ID:</label>
-      <input type="text" class="form-control" id="id" placeholder="Enter id" name="id"/>
-    </div>
-    <div class="form-group">
-      <label for="manager">Manager:</label>
-      <input type="text" class="form-control" id="manager" placeholder="Enter manager" name="manager" />
+      <input th:value="${dto.firstName}" type="text" class="form-control" id="fname" placeholder="Enter first name" name="fname"/>
     </div>
     
-    <button type="button" class="btn btn-default">Update</button>
+    <div class="form-group">
+      <label for="lname">Last name:</label>
+      <input th:value="${dto.lastName}" type="text" class="form-control" id="lname" placeholder="Enter last name" name="lname"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input th:value="${dto.email}" type="email" class="form-control" id="email" placeholder="Enter email" name="email"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="id">Employee ID:</label>
+      <input th:value="${dto.employeeId}" type="text" class="form-control" id="id" placeholder="Enter id" name="id"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="manager">Manager:</label>      
+      <select class="form-control" id="manager" name="manager">
+      	<option th:each="dto:${managers}" th:value="${dto.employeeId}" th:text="${dto.managerName}"/>
+      </select>
+    </div>
+    
+    <button type="submit" class="btn btn-default"><span class ="glyphicon glyphicon-pencil"></span>Update</button>
     <button type="button" class="btn btn-default">Cancel</button>
 	
   </form>

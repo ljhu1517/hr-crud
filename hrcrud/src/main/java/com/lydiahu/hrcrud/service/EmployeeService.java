@@ -9,7 +9,7 @@ import com.lydiahu.hrcrud.model.Employee;
 public interface EmployeeService {
 
 	List<Employee> findAll();
-	Employee findByID(BigDecimal id);
+	Employee findById(BigDecimal id);
 	void delete(Employee e);
 	void delete(BigDecimal id);
 	Employee saveOrUpdate(Employee e);
