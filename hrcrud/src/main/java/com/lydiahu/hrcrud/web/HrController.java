@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.lydiahu.hrcrud.dto.EmployeeDTO;
 import com.lydiahu.hrcrud.model.Department;
 import com.lydiahu.hrcrud.model.Employee;
@@ -57,13 +59,18 @@ public class HrController {
 	}
 	
 	@RequestMapping(value = "/getAll")
+	@ResponseBody		//return json data
 	public String getAllEmployees(Model model) {
 		
-		List<Employee> employees = this.employeeService.findAll();
+		List<EmployeeDTO> list = new ArrayList<EmployeeDTO>();
 		
-		//put data in model
-		model.addAttribute("employeeKey", employees);
-		return null;
+		for(Employee e : this.employeeService.findAll()) {
+			EmployeeDTO edto = this.getEmployeeDto(e);
+			list.add(edto);
+		}
+		
+		String jsonString = new Gson().toJson(list);
+		return jsonString;
 	}
 	
 	@RequestMapping(value = "/getOne/{id}")
@@ -114,7 +121,7 @@ public class HrController {
 		
 		this.employeeService.delete(id);
 		
-		return "";
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -155,7 +162,7 @@ public class HrController {
 		dto.setEmployeeId(e.getId());
 		dto.setDepartmentName(e.getDepartment().getName());
 		dto.setManagerName(e.getManagerId()==null?"":this.employeeService.findById(e.getManagerId()).toString());
-		dto.setEditUrl("<a href='/update?id=" + dto.getEmployeeId()+ "' "+ "class='btn btn-success'>Update</a>");
+		dto.setEditUrl("<a href='/load-update?id=" + dto.getEmployeeId()+ "' "+ "class='btn btn-success'>Update</a>");
 		dto.setDeleteUrl("<a href='/delete?id=" + dto.getEmployeeId()+ "' "+ "class='btn btn-warning'>Delete</a>");
 		return dto;
 	}

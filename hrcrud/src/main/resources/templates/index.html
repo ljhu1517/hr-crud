@@ -5,87 +5,37 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+  
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"></link>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/datatables.min.css}"></link>
+  
+  <script type="text/javascript" th:src="@{/js/jquery-2.2.4.min.js}"> </script>
+  <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"> </script>
+    <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"> </script>
+  <script type="text/javascript" th:src="@{/js/dataTables.bootstrap.min.js}"> </script>
+  <script type="text/javascript" th:src="@{/js/function.js}"></script>
+  
 </head>
-<body>
-
-<div class="container">
-  <h2>HR Crud</h2>
-  <p>This table is a tool for HR staff to create, read, update, and delete employees:</p> 
-  		<a th:href="@{/add-new}" class="btn btn-default btn-sm"> <span class="glyphicon glyphicon-plus"></span> Add Employee</a>
-
-  <div class = "table-responsive">
-  
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Department</th>
-        <th>Employee ID</th>
-        <th>Manager</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-        
-	    	<tr th:each="dto:${dtos}">
-	    		<td th:text="${dto.firstName}"></td>
-	    		<td th:text="${dto.lastName}"></td>
-	    		<td th:text="${dto.email}"></td>
-	    		<td th:text="${dto.departmentName}"></td>
-	    		<td th:text="${dto.employeeId}"></td>
-	    		<td th:text="${dto.managerName}"></td>
-	    		<td>
-	    			<a th:href="@{'/load-update?id=' + __${dto.employeeId}__}" class='btn btn-success'>Edit</a> <!-- '/update?id=' +  -->
-	    			<a th:href="@{'/delete?id=' + __${dto.employeeId}__}" class='btn btn-warning'>Delete</a> <!-- '/delete?id=' +  -->
-	    		</td>
-	    		
-	    	</tr>
-    	
-     <!--  <tr>
-			<td>John</td>
-			<td>Doe</td>
-			<td>john_doe@gmail.com</td>
-			<td>HR</td>
-			<td>683049</td>
-			<td>Johnson</td>
-            <td>  <button type="button" class="btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-pencil"></span> Edit </button> 
-          <button type = "button" class = "btn btn-default btn-sm"> <span class ="glyphicon glyphicon-trash"></span> Delete </button></td>
-		</tr>
-      <tr>
-			<td>Lotso</td>
-			<td>Bear</td>
-			<td>lotso_bear@gmail.com</td>
-			<td>Finances</td>
-			<td>594303</td>
-			<td>Martinez</td>
-			<td>  <button type="button" class="btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-pencil"></span> Edit </button> 
-          <button type = "button" class = "btn btn-default btn-sm"> <span class ="glyphicon glyphicon-trash"></span> Delete </button></td>	
-		</tr>
-      
-        <tr>
-			<td>Dory</td>
-			<td>Fish</td>
-			<td>dory_fish@gmail.com</td>
-			<td>Finances</td>
-			<td>305948</td>
-			<td>Johnson</td>
-			<td>  <button type="button" class="btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-pencil"></span> Edit </button> 
-          <button type = "button" class = "btn btn-default btn-sm"> <span class ="glyphicon glyphicon-trash"></span> Delete </button></td>
-        </tr>
-       -->
-      	
-    </tbody>
-  </table>
-  
-</div>
-</div>
-</body>
+	<body>
+		<div class="container">
+		  <h2>HR Crud</h2>
+		  <p>This table is a tool for HR staff to create, read, update, and delete employees:</p> 
+		  <a th:href="@{/add-new}" class="btn btn-default btn-sm"> <span class="glyphicon glyphicon-plus"></span> Add Employee</a>
+		  <div class = "table-responsive">
+			  <table id="hr-table" class="display" >
+			    	 <thead><tr>
+			    		<td>First Name</td>
+			    		<td>Last Name</td>
+			    		<td>Email</td>
+			    		<td>Department</td>
+			    		<td>Employee ID</td>
+			    		<td>Manager</td>
+			    		<td>Edit</td>
+			    		<td>Delete</td>
+			    	</tr></thead>
+			  </table> 
+			</div>
+		</div>
+	</body>
 </html>
