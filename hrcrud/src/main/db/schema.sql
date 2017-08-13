@@ -36,6 +36,15 @@ CREATE SEQUENCE public.employee_id_seq
   CACHE 1;
 ALTER TABLE public.employee_id_seq
   OWNER TO lydia;
+  
+  CREATE SEQUENCE public.users_id_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE public.users_id_seq
+  OWNER TO lydia;
 
 DROP TABLE department cascade
 CREATE TABLE
@@ -73,4 +82,23 @@ CREATE TABLE
         PRIMARY KEY (id),
         CONSTRAINT employee_fk2 FOREIGN KEY (job_id) REFERENCES job (id),
         CONSTRAINT employee_fk1 FOREIGN KEY (department_id) REFERENCES department (id)
+    );
+    
+    CREATE TABLE
+    users
+    (
+        id BIGINT DEFAULT nextval('users_id_seq'::regclass) NOT NULL,
+        username CHARACTER VARYING NOT NULL,
+        password CHARACTER VARYING NOT NULL,
+        enabled BOOLEAN NOT NULL,
+        PRIMARY KEY (id),
+        UNIQUE (username)
+    );
+    
+CREATE TABLE
+    authorities
+    (
+        username CHARACTER VARYING(255) NOT NULL,
+        authority CHARACTER VARYING(255) NOT NULL,
+        CONSTRAINT authorities_fk1 FOREIGN KEY (username) REFERENCES users (username)
     );

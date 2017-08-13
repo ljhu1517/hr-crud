@@ -11,6 +11,7 @@ import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,11 +39,8 @@ public class HrController {
 	@Autowired
 	private JobService jobService;
 	
-	public void login() {
-		
-	}
 	
-	@RequestMapping(value = "/")
+	@GetMapping(value = "/hr")
 	public String load(Model model) {
 		
 		List<Employee> employees = this.employeeService.findAll();
@@ -55,10 +53,10 @@ public class HrController {
 		
 		model.addAttribute("dtos", dtos);
 		
-		return "index";
+		return "hr/index";
 	}
 	
-	@RequestMapping(value = "/getAll")
+	@RequestMapping(value = "/hr/getAll")
 	@ResponseBody		//return json data
 	public String getAllEmployees(Model model) {
 		
@@ -73,7 +71,7 @@ public class HrController {
 		return jsonString;
 	}
 	
-	@RequestMapping(value = "/getOne/{id}")
+	@RequestMapping(value = "/hr/getOne/{id}")
 	public String getEmployeeById(Model model, @PathVariable("id") BigDecimal id) {
 		
 		Employee e = this.employeeService.findById(id);
@@ -81,7 +79,7 @@ public class HrController {
 		model.addAttribute("indvEmpKey", e);
 		return null; 
 	}
-	@RequestMapping("/add-new")
+	@RequestMapping("/hr/add-new")
 	public String addEmp(Model model) {
 		
 		List<Department> departments = this.departmentService.findAll();
@@ -93,9 +91,9 @@ public class HrController {
 		model.addAttribute("jobs", jobs);
 		model.addAttribute("managers", this.getManagers());
 		
-		return "add-new";
+		return "hr/add-new";
 	}
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/hr/add", method = RequestMethod.POST)
 	public String addNewEmployee(Model model, @RequestParam String fname, @RequestParam String lname, @RequestParam String email, 
 			@RequestParam Date hiredate, @RequestParam(required = false) BigDecimal managerid, @RequestParam BigDecimal departmentid, 
 			@RequestParam BigDecimal jobid, @RequestParam BigDecimal salary) {
@@ -113,18 +111,18 @@ public class HrController {
 		
 		this.employeeService.saveOrUpdate(e);
 		
-		return "redirect:/";		//return to home page
+		return "redirect:/hr";		//return to home page
 	}
 	
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/hr/delete", method = RequestMethod.GET)
 	public String deleteEmployee(Model model, @RequestParam BigDecimal id) {
 		
 		this.employeeService.delete(id);
 		
-		return "redirect:/";
+		return "redirect:/hr";
 	}
 	
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	@RequestMapping(value = "/hr/update", method = RequestMethod.POST)
 	public String updateEmployee(Model model, @RequestParam BigDecimal id, @RequestParam String fname, @RequestParam String lname, @RequestParam String email, @RequestParam BigDecimal manager) {
 		
 		Employee e = this.employeeService.findById(id);
@@ -137,10 +135,10 @@ public class HrController {
 		Employee newEmp = this.employeeService.saveOrUpdate(e);
 		model.addAttribute(newEmp);		//return result to UI, make data available
 		
-		return "redirect:/";
+		return "redirect:/hr";
 	}
 	
-	@RequestMapping(value = "/load-update")
+	@RequestMapping(value = "/hr/load-update")
 	public String loadUpdatePage(@RequestParam BigDecimal id, Model model) {
 		
 		Employee e = this.employeeService.findById(id);
@@ -149,7 +147,14 @@ public class HrController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("managers", this.getManagers());
 		
-		return "edit";
+		return "hr/edit";
+	}
+	
+	@RequestMapping(value = "/") 
+	public String index (){
+		
+		
+		return "home";
 	}
 	
 	private EmployeeDTO getEmployeeDto(Employee e) {
@@ -162,8 +167,8 @@ public class HrController {
 		dto.setEmployeeId(e.getId());
 		dto.setDepartmentName(e.getDepartment().getName());
 		dto.setManagerName(e.getManagerId()==null?"":this.employeeService.findById(e.getManagerId()).toString());
-		dto.setEditUrl("<a href='/load-update?id=" + dto.getEmployeeId()+ "' "+ "class='btn btn-success'>Update</a>");
-		dto.setDeleteUrl("<a href='/delete?id=" + dto.getEmployeeId()+ "' "+ "class='btn btn-warning'>Delete</a>");
+		dto.setEditUrl("<a href='/hr/load-update?id=" + dto.getEmployeeId()+ "' "+ "class='btn btn-success'>Update</a>");
+		dto.setDeleteUrl("<a href='/hr/delete?id=" + dto.getEmployeeId()+ "' "+ "class='btn btn-warning'>Delete</a>");
 		return dto;
 	}
 	
@@ -188,6 +193,12 @@ public class HrController {
 		}
 		
 		return managers;
+				
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "/login";
 	}
 	
 }

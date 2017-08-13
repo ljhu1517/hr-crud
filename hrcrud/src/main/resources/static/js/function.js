@@ -1,7 +1,7 @@
 $(function(){
 	$('#hr-table').DataTable({
 		'ajax':{
-			'url':'/getAll',
+			'url':'/hr/getAll',
 			'dataSrc':''
 		},
 		"columns": [

@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"></link>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/datatables.min.css}"></link>
+  
+  <script type="text/javascript" th:src="@{/js/jquery-2.2.4.min.js}"> </script>
+  <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"> </script>
+    <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"> </script>
+  <script type="text/javascript" th:src="@{/js/dataTables.bootstrap.min.js}"> </script>
+  <script type="text/javascript" th:src="@{/js/function.js}"></script>
+  
+</head>
+	<body>
+		<div class="container">
+		  <h2>Toys Ave Inc</h2>
+		  <p>This table is a tool for HR staff to create, read, update, and delete employees:</p> 
+		  <a th:href="@{/hr/add-new}" class="btn btn-default btn-sm"> <span class="glyphicon glyphicon-plus"></span> Add Employee</a>
+		  <div class = "table-responsive">
+			  <table id="hr-table" class="display" >
+			    	 <thead><tr>
+			    		<td>First Name</td>
+			    		<td>Last Name</td>
+			    		<td>Email</td>
+			    		<td>Department</td>
+			    		<td>Employee ID</td>
+			    		<td>Manager</td>
+			    		<td>Edit</td>
+			    		<td>Delete</td>
+			    	</tr></thead>
+			  </table> 
+			  
+			  <form th:action="@{/logout}" method="post">
+			  	<input type="submit" value="Sign Out" class="btn btn-primary"/>
+			  </form>
+			  
+			</div>
+		</div>
+	</body>
+</html>
